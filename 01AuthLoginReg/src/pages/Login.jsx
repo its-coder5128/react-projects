@@ -1,11 +1,12 @@
-import React, { useState }from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState }from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 
 function Login(){
     const [cred,setCred] = useState({email:"",password:""})
-    const { handleLogin } = useAuth()
-
+    const { user,handleLogin } = useAuth()
+    const navigate = useNavigate()
+    
     const handleChange = (e)=>{
 
         let name = e.target.name
@@ -15,6 +16,11 @@ function Login(){
 
         console.log("cred",cred)
     }
+
+    useEffect(()=>{
+        if(user)
+            navigate("/")
+    },[])
     return(
         <div className=" w-full h-screen bg-slate-950 flex justify-center items-center">
             <div className=" w-full max-w-xl bg-slate-800 rounded-md border border-rose-950">

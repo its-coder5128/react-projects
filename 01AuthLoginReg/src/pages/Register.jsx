@@ -1,10 +1,11 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import React, {useState,useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
 
 function Register(){
-    const {handleRegisterNewUser} = useAuth()
+    const {user,handleRegisterNewUser} = useAuth()
     const [cred,setCred] = useState({email:"",password:"",name:""})
+    const navigate = useNavigate()
 
     const handleChange = (e)=>{
 
@@ -13,6 +14,11 @@ function Register(){
 
         setCred((prev) => ({...prev, [Name] : value}))
     }
+
+    useEffect(()=>{
+        if(user)
+            navigate("/")
+    },[])
     return(
         <div className=" w-full h-screen bg-slate-950 flex justify-center items-center">
             <div className=" w-full max-w-xl bg-slate-800 rounded-md border border-rose-950">
